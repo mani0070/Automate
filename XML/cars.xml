@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carsdealers>
+  <car make="GM">
+    <Gear type="Maual">5</Gear>
+    <Drivemode>FourWheel</Drivemode>
+    <year>2015</year>
+    <price>30000.00</price>
+    <discount>750.00</discount>
+  </car>
+</carsdealers>

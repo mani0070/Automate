@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carsdealers>
+  <car make="GM">
+    <Gear type="Auto">5</Gear>
+    <Drivemode>FourWheel</Drivemode>
+    <year>2015</year>
+    <price>30000.00</price>
+    <discount>750.00</discount>
+  </car>
+    <car make="Teelsa">
+    <Gear type="Manual">7</Gear>
+    <Drivemode>TwoWheel</Drivemode>
+    <year>2015</year>
+    <price>25000.00</price>
+    <discount>750.00</discount>
+  </car>
+</carsdealers>
