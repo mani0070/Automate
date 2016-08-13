@@ -34,7 +34,8 @@ $stoexists = Find-AzureRmResource -ResourceNameContains $storageAccountName
 
 if ($stoexists -eq $null)
 { 
-    New-AzureRmStorageAccount -ResourceGroupName $rgNameStorage -Name $storageAccountName -Location $location -SkuName Standard_LRS -Verbose
+    Write-Output "Creating New Stroage Account"
+	New-AzureRmStorageAccount -ResourceGroupName $rgNameStorage -Name $storageAccountName -Location $location -SkuName Standard_LRS -Verbose
     $stoctx = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey (Get-AzureRmStorageAccountKey -ResourceGroupName $rgNameStorage -Name $storageAccountName).value[0] 
     New-AzureStorageContainer -Name $ContainerName  -Context $stoctx
 }
@@ -51,7 +52,7 @@ try
 }
 catch [Microsoft.WindowsAzure.Commands.Storage.Common.ResourceNotFoundException]
 {
-    Write-Host 'Blob Does Not exists'
+    Write-Output 'Blob Does Not exists'
     $blob = $null
 }
 $stouri = -Join($sto.PrimaryEndpoints.Blob, $ContainerName , '/', $blobname)
@@ -59,7 +60,8 @@ $stouri = -Join($sto.PrimaryEndpoints.Blob, $ContainerName , '/', $blobname)
 $ruleList = Get-AzureRmSqlServerFirewallRule -ServerName $SourceSqlServerName -ResourceGroupName $SourceRGName
 if (!($ruleList.FirewallRuleName.Contains('AllowAllAzureIPs')))
 {
-    New-AzureRmSqlServerFirewallRule -ServerName $SourceSqlServerName -ResourceGroupName $SourceRGName -AllowAllAzureIPs -Verbose
+    Write-Output "Adding New Rule"
+	New-AzureRmSqlServerFirewallRule -ServerName $SourceSqlServerName -ResourceGroupName $SourceRGName -AllowAllAzureIPs -Verbose
 }
 
  $statusExport = New-AzureRmSqlDatabaseExport -DatabaseName $SoruceDatabaseName -ServerName $SourceSqlServerName -AdministratorLogin (Get-AutomationVariable –Name 'sqlusername') -AdministratorLoginPassword $sqlpassword `
@@ -68,8 +70,8 @@ if (!($ruleList.FirewallRuleName.Contains('AllowAllAzureIPs')))
 		
  while ((Get-AzureRmSqlDatabaseImportExportStatus -OperationStatusLink $statusExport.OperationStatusLink).Status -ne 'Succeeded')
  { 
-  Write-Host $statusExport.Status
-  Start-Sleep(10)
+  	Write-Output $statusExport.Status
+  	Start-Sleep(10)
   }
    
  
