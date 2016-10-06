@@ -1,6 +1,6 @@
 $rgName = 'name'
 $storageAccountName = 'dicustomimages'
-$customimagebloguri = 'https://<Storageaccountname>.blob.core.windows.net/system/Microsoft.Compute/Images/customvhds/dicustom-osDisk.a50ce7c4-0128-441e-a69f-bf712f4c4d93.vhd'
+$customimagebloguri = "https://$storageAccountName.blob.core.windows.net/system/Microsoft.Compute/Images/customvhds/dicustom-osDisk.a50ce7c4-0128-441e-a69f-bf712f4c4d93.vhd"
 $location = 'North Europe'
 #Create Below only if its first time
 New-AzureRmResourceGroup -Name $rgName -Location $location -Force
