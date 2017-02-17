@@ -1,0 +1,65 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "accountName": {
+      "type": "string",
+      "defaultValue" : "dilabs"
+      
+    },
+    "location": {
+      "type": "string",
+      "defaultValue" : "West Europe"
+    },
+    "projectName": {
+      "type": "string",
+      "defaultValue" : "didock"
+    },
+    "processTemplateId": {
+      "type": "string",
+      "defaultValue" : "KEY##########"
+    },
+    "processTemplateName": {
+      "type": "string",
+      "defaultValue" : "Agile"
+    },
+    "versionControlName": {
+      "type": "string",
+      "defaultValue" : "Git"
+
+    },
+    "versionControlOption": {
+      "type": "string",
+       "defaultValue" : "Git"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[parameters('accountName')]",
+      "type": "microsoft.visualstudio/account",
+      "location": "[parameters('location')]",
+      "apiVersion": "2014-04-01-preview",
+      "properties": {
+        "operationType": "Create",
+        "accountName": "[parameters('accountName')]"
+      },
+      "resources": [
+        {
+          "name": "[parameters('projectName')]",
+          "type": "project",
+          "location": "[parameters('location')]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('microsoft.visualstudio/account/', parameters('accountName'))]"
+          ],
+          "properties": {
+            "ProcessTemplateId": "[parameters('processTemplateId')]",
+            "VersionControlOption": "[parameters('versionControlOption')]"
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": {}
+}
